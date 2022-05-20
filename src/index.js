@@ -1,7 +1,12 @@
 const express = require('express')
+const path = require('path')
+const hbs = require('hbs')
+const cookieParser = require('cookie-parser')
+
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
+
 // const { updateOne } = require('./models/user')
 // const Task = require('./models/task')
 // const User = require('./models/user')
@@ -9,8 +14,19 @@ const taskRouter = require('./routers/task')
 const app = express()
 const port = process.env.PORT
 
+const publicDirectoryPath = path.join(__dirname, '../public')//
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
 
+app.set('view engine', 'hbs')
+app.set('views', viewsPath)
+hbs.registerPartials(partialsPath)
 
+app.use(express.static(publicDirectoryPath))  //
+
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))
+app.use(cookieParser())
 // const multer = require('multer')
 // const upload = multer({
 //     dest: 'images',

@@ -81,7 +81,7 @@ userSchema.methods.toJSON = function () {             // toJSON is helping in re
 userSchema.methods.generateAuthToken = async function () {                // the METHODS are available on the instances(instance means an object created)
     const user = this
     const token = jwt.sign({_id: user._id.toString()}, process.env.JWT_SECRET)   //yha pr toString ka use isliye kiya h because the _id used is of object type
-
+    
     user.tokens = user.tokens.concat({ token }) // yha pr token : token ko sirf token likha h shorthand me 
     await user.save()
     return token

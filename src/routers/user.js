@@ -6,43 +6,95 @@ const {sendWelcomeEmail, sendCancelEmail } = require('../emails/account')
 const sharp = require('sharp')
 const router = new express.Router()
 
+
+// router.get('/', auth, async (req,res) => {
+//     res.render("createTask")
+// })
+
+router.get('/', async (req,res) => {
+    res.render("index")
+})
+router.get('/about', async (req,res) => {
+    res.render("about")
+})
+router.get('/users', async (req,res) => {
+    res.render("register")
+})
+router.get('/users/login', async (req,res) => {
+    res.render("login")
+})
+router.get('/users/createTask', auth, async (req,res) => {
+    res.render("createTask")
+})
+router.get('/users/abouts', auth, async (req,res) => {
+    res.render("about_after")
+})
 router.post('/users', async (req,res) => {
-    const user  = new User(req.body)   // the grabbed json logged here and shown in the terminal
+    const user  = new User(req.body)   
     
     try {
         await user.save()
         sendWelcomeEmail(user.email, user.name)
         const token = await user.generateAuthToken()    // generateAuthToken is a replacble name for function that generates token everytime user registers or logins .....the function name can be changed to anything else
-        res.status(201).send({user, token})
+        res.cookie("jwt", token, {
+            expires : new Date(Date.now() + 600000),
+            httpOnly : true
+        })
+        res.render("register-success")
     }catch(e){
         res.status(400).send(e)
     }
-
+    
     // user.save().then(() => {
-    //          res.status(201).send(user)
-    //      }).catch((e)=> {
-    //          res.status(400).send(e)
-    //      })
-})
-
+        //          res.status(201).send(user)
+        //      }).catch((e)=> {
+            //          res.status(400).send(e)
+            //      })
+        })
+        
 router.post('/users/login', async (req,res) => {
     try {
-        const user = await User.findByCredentials(req.body.email , req.body.password)
+        email = req.body.email
+        password = req.body.password
+        const user = await User.findByCredentials(email , password)
         const token = await user.generateAuthToken()    // generateAuthToken is a replacble name for function that generates token everytime user registers or logins .....the function name can be changed to anything else
-        res.send({user, token})
+        res.cookie("jwt", token, {
+            expires : new Date(Date.now() + 600000),
+            httpOnly : true
+        })
+        res.status(201).redirect('/users/createTask')
+    
     } catch (e) {
         res.status(400).send()
     }
 })
 
-router.post('/users/logout', auth , async(req,res) => {
+router.get('/users/me', auth , async (req,res) => {
+    res.send(req.user)
+    
+    // try {
+    //     const users = await User.find({})
+    //     res.send(users)
+    // } catch (e) {
+    //     res.status(500).send()
+    // }
+//    User.find({}).then((users) => {
+//        res.send(users)
+//    }).catch((e) => {
+//        res.status(500).send()   
+//    })
+})
+// router.get('/users/logout', auth , async(req,res) => {
+    
+// })
+router.get('/users/logout', auth , async(req,res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
         })
         await req.user.save()
 
-        res.send('Logout success')
+        res.redirect('/')
 
     } catch (e) {
         res.status(500).send()
@@ -63,21 +115,7 @@ router.post('/users/logoutAll', auth , async(req,res) => {
 })
 
 
-router.get('/users/me', auth ,async (req,res) => {
-    res.send(req.user)
-    
-    // try {
-    //     const users = await User.find({})
-    //     res.send(users)
-    // } catch (e) {
-    //     res.status(500).send()
-    // }
-//    User.find({}).then((users) => {
-//        res.send(users)
-//    }).catch((e) => {
-//        res.status(500).send()   
-//    })
-})
+
 
 // router.get('/users/:id', async (req,res) => {      // /:id is saying that someone will search for a user with a id which can be anything
 //     const _id = req.params.id 
