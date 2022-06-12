@@ -1,98 +1,102 @@
-.section-1{
-    background-color: rgb(255, 255, 255);
-    display: block;
-    font-family: 'Roboto';
-    
+@import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
+
+.section-1 {
+  background-color: rgb(255, 255, 255);
+  display: block;
+  font-family: "Kdam Thmor Pro", sans-serif;
 }
-.container-main{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    
+.container-main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.container-1{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    margin: 20px ;
+.container-1 {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 20px;
 }
-.container-2{
-    display: flex;
-    flex-direction: row;
-    flex-wrap : wrap;
-    justify-content: space-around;   
-    width: 100%;
-    padding: 20px;
-    /* text-align: center; */
+.container-2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px;
+  margin-top: -40px;
+  /* text-align: center; */
 }
-.cont-2-1{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.cont-2-1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.cont-2-1 img{
-    max-width: 100%;
+.cont-2-1 img {
+  max-width: 100%;
   height: auto;
 }
-.cont-2-2{
-    width: 65%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    
+.cont-2-2 {
+  width: 65%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-#main-h1{
-   color: rgb(145, 145, 145);
-   transition: 200ms;
-   text-align: center;
+#main-h1 {
+  color: rgb(145, 145, 145);
+  transition: 200ms;
+  text-align: center;
+}
+#main-h1:hover {
+  color: rgb(112, 112, 112);
+}
+#main-p {
+  font-size: 1.7vmax;
+  color: rgb(145, 145, 145);
+  text-align: center;
+}
+.container-3 {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+#btn {
+  width: 25vmax;
+  background-image: linear-gradient(
+    to left,
+    #f6b596,
+    #de6189,
+    #de6189,
+    #f6b596
+  );
+  background-size: 350%;
+  background-position: left;
+  transition: 0.3s background-position;
+  padding: 10px;
+  /* margin: 20px; */
+  border-radius: 30px;
+  border: none;
+  color: white;
+  box-shadow: 2px 2px 20px rgb(212, 168, 168);
+}
+#btn:hover {
+  background-position: right;
+}
+.container-3 a {
+  text-decoration: none;
+  font-size: 2vmax;
+}
+@media only screen and (max-width: 800px) {
+  #main-p {
+    font-size: 2.5vmax;
+  }
+}
 
-}
-#main-h1:hover{
-   color: rgb(112, 112, 112);
-   
-}
-#main-p{
-    font-size: 2vmax;
-   color: rgb(145, 145, 145);
-   text-align: center;
-}
-.container-3{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-
-}
-#btn{
-    width: 25vmax;
-    background-image: linear-gradient(to left, #F6B596, #DE6189);
-    padding: 10px;
-    margin: 20px;
-    border-radius: 30px;
-    transition: 2s;
-    border: none;
-    color: white;
-    box-shadow: 2px 2px 20px rgb(212, 168, 168);
-}
-.container-3 a{
-    text-decoration: none; 
-    font-size: 2vmax;
-}
-#btn:hover{
-    background-image: linear-gradient(to right, #F6B596, #DE6189);
-}
-@media only screen and (max-width:800px){
-    #main-p{
-        font-size: 2.5vmax;
-        
-    }
-}
-
-@media only screen and (max-width:730px)
-{
-    .cont-2-2{
-        width: 100%;
-    }
+@media only screen and (max-width: 730px) {
+  .cont-2-2 {
+    width: 100%;
+  }
 }

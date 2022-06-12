@@ -1,48 +1,50 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing : border-box;
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Kdam+Thmor+Pro&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-body{
-    font-family: 'Roboto';
-    font-weight: 400;
-    height: 100vh;
-    /* display: flex;
+body {
+  font-family: "Kdam Thmor Pro", sans-serif;
+  font-weight: 400;
+  height: 100vh;
+  /* display: flex;
     justify-content: center;
     align-items: center; */
-    background: linear-gradient( to bottom right,#F6B596, #DE6189);
+  background: linear-gradient(to bottom right, #f6b596, #de6189);
 }
-.main{
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.main {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
-.signup-wrap{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    width: 500px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    background-color: #fff;
-    padding : 20px;
-    text-align: center;
+.signup-wrap {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
 }
-.input-wrap{
-    text-align: center;
-    margin: 10px;
+.input-wrap {
+  text-align: center;
+  margin: 10px;
 }
-input{
-    border: none;
-    width: 100%;
-    padding: 10px;
-    border-bottom: 2px solid gray;
-    transition: 500ms ease all;
+input {
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 2px solid gray;
+  transition: 500ms ease all;
 }
-input:focus{
-    outline: none;
-    box-shadow : 0 1px 0 0 red;
-    border-color: red;
+input:focus {
+  outline: none;
+  box-shadow: 0 1px 0 0 red;
+  border-color: red;
 }

@@ -1,0 +1,60 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Kdam+Thmor+Pro&display=swap');
+
+  * {
+    font-family: 'Kdam Thmor Pro', sans-serif;
+  }
+
+  .navbar-nav {
+    width: 40%;
+    justify-content: space-around;
+  }
+
+  @media only screen and (max-width:992px) {
+    .navbar-brand {
+      margin-left: -20px;
+    }
+
+    .navbar-nav {
+      width: 100%;
+    }
+
+    #btn {
+      font-size: 20px;
+    }
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 2;">
+  <div class="container-fluid">
+    <nav class="navbar navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="/images/Group 3.png" alt="" width="80" height="60" />
+        </a>
+      </div>
+    </nav>
+    <b><a class="navbar-brand"
+        style="font-size: 2rem; background : -webkit-linear-gradient(#eee, #333); background-clip: border-box; -webkit-background-clip: text;-webkit-text-fill-color: transparent; ">WorkFlow</a></b>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-size: large;">
+        <li class="nav-item active text-center">
+          <a class="nav-link" aria-current="page" href="/">Home</a>
+        </li>
+
+        <li class="nav-item text-center">
+          <a class="nav-link" href="/users">Register</a>
+        </li>
+
+        <li class="nav-item text-center">
+          <a class="nav-link" href="/users/login">Login</a>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
