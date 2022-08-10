@@ -62,16 +62,16 @@ $("#edit_btn").on("click", () => {
     status: $("#status").val(),
     dueDate: $("#due").val(),
   };
-
-  $.ajax({
-    type: "PATCH",
-    url: "/tasks/" + TaskId,
-    data: formData,
-    success: function () {
-      window.location.reload();
-    },
-  });
-
+  if (formData.description.length > 0 && formData.title.length > 0) {
+    $.ajax({
+      type: "PATCH",
+      url: "/tasks/" + TaskId,
+      data: formData,
+      success: function () {
+        window.location.reload();
+      },
+    });
+  }
   console.log(TaskId);
 });
 
@@ -85,12 +85,14 @@ $("#create_btn_new").on("click", () => {
     dueDate: $("#due_new").val(),
   };
   console.log(formData2);
-  $.ajax({
-    type: "POST",
-    url: "/tasks",
-    data: formData2,
-    success: function () {
-      window.location.reload();
-    },
-  });
+  if (formData2.description.length > 0 && formData2.title.length > 0) {
+    $.ajax({
+      type: "POST",
+      url: "/tasks",
+      data: formData2,
+      success: function () {
+        window.location.reload();
+      },
+    });
+  }
 });
