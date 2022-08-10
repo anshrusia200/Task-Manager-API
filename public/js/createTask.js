@@ -1,42 +1,96 @@
-document.getElementsByClassName("navbar-nav").innerHTML = `
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/" style="font-size: px;">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/users/me">Profile</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/users/logout">Logout</a>
-        </li>
-`;
-
-// Get the modal
+function deleteTask(id) {
+  $.ajax({
+    type: "DELETE",
+    url: "/tasks/" + id,
+  });
+  window.location.reload();
+}
 var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("myModal2");
+// window.onclick = function (event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// };
 
-// Get the button that opens the modal
-var btn = document.getElementById("createTask");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-btn.onclick = function () {
+function showModal() {
   modal.style.display = "block";
-};
+}
+function showModal2() {
+  modal2.style.display = "block";
+}
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
+function closeModal() {
   modal.style.display = "none";
-};
+  modal2.style.display = "none";
+}
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
+var TaskId;
+
+function populateModal(i, taskId) {
+  var title = document.getElementById("title_" + i).innerText;
+  var desc = document.getElementById("desc_" + i).innerText;
+  var status = document.getElementById("status_" + i).innerText;
+  var percent = document.getElementById("percent_" + i).innerText.trim();
+  var due = document.getElementById("due_" + i).innerText;
+
+  document.getElementById("title").value = title;
+  document.getElementById("desc").value = desc;
+  document.getElementById("status").value = status;
+  document.getElementById("percent").value = percent;
+  document.getElementById("percent_num").value = percent;
+  document.getElementById("due").value = due;
+  TaskId = taskId;
+}
+
+function populateModal2() {
+  document.getElementById("percent_new").value = 0;
+  document.getElementById("percent_num_new").value = 0;
+}
+
+var today = new Date().toISOString().split("T")[0];
+document.getElementById("due").setAttribute("min", today);
+
+var today2 = new Date().toISOString().split("T")[0];
+document.getElementById("due_new").setAttribute("min", today2);
+
+$("#edit_btn").on("click", () => {
+  const formData = {
+    title: $("#title").val(),
+    description: $("#desc").val(),
+    progress: $("#percent").val(),
+    status: $("#status").val(),
+    dueDate: $("#due").val(),
+  };
+
+  $.ajax({
+    type: "PATCH",
+    url: "/tasks/" + TaskId,
+    data: formData,
+    success: function () {
+      window.location.reload();
+    },
+  });
+
+  console.log(TaskId);
+});
+
+$("#create_btn_new").on("click", () => {
+  const formData2 = {
+    title: $("#title_new").val(),
+    description: $("#desc_new").val(),
+    progress: $("#percent_new").val(),
+    status: $("#status_new").val(),
+    createdDate: today2,
+    dueDate: $("#due_new").val(),
+  };
+  console.log(formData2);
+  $.ajax({
+    type: "POST",
+    url: "/tasks",
+    data: formData2,
+    success: function () {
+      window.location.reload();
+    },
+  });
+});

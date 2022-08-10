@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Task</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/createTask.css">
+  <link rel="stylesheet" href="/css/alerts.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <%- include ('partials/header2')%>
+
+
+    <br>
+    <% if(success_message.length> 0 ){ %>
+      <div class="alert alert-success position-absolute" style="top: 0; right: 0; z-index: 2;" role="alert">
+        <%= success_message %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+            onclick="this.parentNode.style.display = 'none';">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <% } %>
+
+        <div class="welcomeMsg">
+          <h3>Hello, welcome <%= user.name %>
+          </h3>
+
+        </div>
+        <% if(tasks.length==0) {%>
+          <div class="no-task">
+            <h4> No tasks coming up! Take a break &#128564;</h4>
+          </div>
+          <%}%>
+
+            <div class="create_btn_cont">
+              <button id="create_btn" onclick="showModal2();populateModal2();">Create New Task</button>
+            </div>
+            <div id="myModal2" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <h3>Create Task</h3>
+                <span class="close2" onclick="closeModal()">&times;</span>
+                <div class="content">
+                  <div class="left">
+                    <div class="input-div">
+                      <label for="title_new">Title</label>
+                      <input type="text" id="title_new" name="title_new" placeholder="Enter Title here" required>
+                    </div>
+                    <div class="input-div">
+                      <label for="status_new">Status</label>
+                      <select name="status_new" id="status_new">
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </div>
+                    <div class="input-div">
+                      <label for="percent_new">Progress (%)</label>
+                      <input type="range" id="percent_new" name="percent_new" max="100" min="0"
+                        oninput="percent_num_new.value = percent_new.value">
+                      <input type="number" readonly id="percent_num_new" name="percent_num_new">
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="input-div">
+                      <label for="desc_new">Description</label>
+                      <textarea type="text" id="desc_new" name="desc_new"
+                        placeholder="Enter Description here"></textarea>
+                    </div>
+                    <div class="input-div">
+                      <label for="due_new">Due Date</label>
+                      <input type="date" id="due_new" name="due_new">
+                    </div>
+                  </div>
+                </div>
+                <div class="btn_cont">
+                  <button id="create_btn_new" class="btn">Create Task</button>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="wrapper">
+              <div class="cards-container">
+                <% var i=0%>
+                  <% tasks.forEach(function(task) { %>
+
+                    <div class="card-wrapper">
+
+
+                      <div class="card">
+                        <div class="card-head">
+                          <div class="title" id="title_<%= i %>">
+                            <%= task.title%>
+                          </div>
+                          <div class="options">
+                            <button onclick="showModal();populateModal('<%= i %>','<%= task.id%>')">
+                              <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button onclick="deleteTask('<%= task.id%>');"><i class="fa fa-trash"></i></button>
+                          </div>
+                        </div>
+
+                        <hr>
+                        <div class="card-mid">
+                          <div class="description">
+                            <span>Description : </span>
+                            <span style="color:rgb(95, 95, 95)" id="desc_<%= i %>">
+                              <%= task.description%>
+                            </span>
+                          </div>
+                          <div class="status">
+                            <span>Status : </span>
+                            <span id="status_<%= i %>">
+                              <%= task.status%>
+                            </span>
+
+                          </div>
+                          <div class="progress_percent">
+                            <div class="progress-bar">
+                              <span class="blue-bar" id="bar_<%= i %>">
+                                <script>
+                                  $("#bar_<%= i %>").css("width", "<%= task.progress%>%")
+                                </script>
+                              </span>
+                            </div>
+                            <span id="percent_<%= i %>">
+                              <%= task.progress%>
+                            </span>% &nbsp; done.
+
+
+                          </div>
+                        </div>
+                        <hr>
+
+                        <div class="card-bottom">
+                          <div class="createdDate">
+                            <div class="key">Date Created</div>
+                            <div class="value">
+                              <%= task.createdDate%>
+                            </div>
+                          </div>
+                          <div class="dueDate">
+                            <div class="key">Due Date</div>
+                            <div class="value" id="due_<%= i %>">
+                              <%= task.dueDate%>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% i++ %>
+                      <% }) %>
+
+              </div>
+
+            </div>
+
+            <div id="myModal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <h3>Edit Task</h3>
+                <span class="close2" onclick="closeModal()">&times;</span>
+                <div class="content">
+                  <div class="left">
+                    <div class="input-div">
+                      <label for="title">Title</label>
+                      <input type="text" id="title" name="title">
+                    </div>
+                    <div class="input-div">
+                      <label for="status">Status</label>
+                      <select name="status" id="status">
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </div>
+                    <div class="input-div">
+                      <label for="percent">Progress (%)</label>
+                      <input type="range" id="percent" name="percent" max="100" min="0"
+                        oninput="percent_num.value = percent.value">
+                      <input type="number" readonly id="percent_num" name="percent_num">
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="input-div">
+                      <label for="desc">Description</label>
+                      <textarea type="text" id="desc" name="desc"></textarea>
+                    </div>
+                    <div class="input-div">
+                      <label for="due">Due Date</label>
+                      <input type="date" id="due" name="due">
+                    </div>
+                  </div>
+                </div>
+                <div class="btn_cont">
+                  <button id="edit_btn" class="btn">Update Task</button>
+                </div>
+              </div>
+
+            </div>
+
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+              integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+              crossorigin="anonymous"></script>
+            <!-- <script src="/js/tasks.js"></script> -->
+            <script src="/js/alerts.js"></script>
+            <script src="/js/createTask.js"></script>
+            <!-- <script type="text/javascript">
+          window.history.forward();
+          function noBack() {
+            window.history.forward();
+          }
+        </script> -->
+
+</body>
+
+</html>

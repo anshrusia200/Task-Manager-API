@@ -6,17 +6,31 @@ const router = new express.Router();
 // router.get("/new-task", auth, async (req, res) => {
 //   res.render("task");
 // });
-router.post("/", auth, async (req, res) => {
+router.post("/tasks", auth, async (req, res) => {
   //const task  = new Task(req.body)
+  function TaskId() {
+    var text = "";
+    var len = 10;
+    var char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < len; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
+  }
+  const taskId = TaskId();
+  console.log(taskId);
   const task = new Task({
     ...req.body, // ... spread opeartor copies everything from request body into the Task object
     userId: req.user.userId,
+    taskId: taskId,
   });
 
   try {
     await task.save();
     res.status(201).send(task);
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
   // task.save().then(() => {
@@ -98,7 +112,13 @@ router.get("/tasks/:id", auth, async (req, res) => {
 
 router.patch("/tasks/:id", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["description", "completed"];
+  const allowedUpdates = [
+    "title",
+    "description",
+    "progress",
+    "status",
+    "dueDate",
+  ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
@@ -118,6 +138,7 @@ router.patch("/tasks/:id", auth, async (req, res) => {
 
     updates.forEach((update) => (task[update] = req.body[update]));
     await task.save();
+    console.log("done");
     res.send(task);
   } catch (e) {
     res.status(400).send(e);

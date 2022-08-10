@@ -10,6 +10,8 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/alerts.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -17,8 +19,9 @@
         <% if(success_message.length> 0 ){ %>
             <div class="alert alert-success position-absolute" style="top: 0; right: 0; z-index: 2;" role="alert">
                 <%= success_message %>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true" onclick="div.style.display = 'none';">&times;</span>
+                    <button type="button" id="1" class="close" data-dismiss="alert" aria-label="Close"
+                        onclick="this.parentNode.style.display = 'none';">
+                        <span aria-hidden="true">&times;</span>
                     </button>
             </div>
             <% } %>

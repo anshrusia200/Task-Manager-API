@@ -11,6 +11,8 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" href="/css/register.css">
     <link rel="stylesheet" href="/css/alerts.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 </head>
 
@@ -19,7 +21,8 @@
         <% if(error_message.length>0 ){ %>
             <div class="alert alert-danger position-absolute" style="top: 0; right: 0;" role="alert">
                 <%= error_message %>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        onclick="this.parentNode.style.display = 'none';">
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
@@ -29,7 +32,7 @@
                 <div class="main">
                     <div class="signup-wrap">
 
-                        <h2>Sign Up</h2>
+                        <h2> <img src="/images/signupIcon.png" alt="" width="35rem" height=""> Sign Up</h2>
                         <br>
                         <form action="/users" method="POST">
                             <div class="input-wrap">
@@ -49,17 +52,17 @@
                             </div>
 
                             <div class="input-wrap">
-                                <button type="submit">Sign Up</button>
+                                <button type="submit" class="formBtn" style="margin-top: 10px">Sign Up</button>
 
                             </div>
 
                         </form>
 
 
-                        <h6>Already have an account?</h2>
-                            <div class="input-wrap">
-                                <a href="/users/login"><button>Login</button></a>
-                            </div>
+                        <div class="input-wrap">
+                            <h6>Already have an account?</h2>
+                                <a href="/users/login"><button class="formBtn">Login</button></a>
+                        </div>
 
                     </div>
                 </div>

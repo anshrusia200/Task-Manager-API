@@ -1,39 +1,126 @@
 @import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
 
-#createTaskContainer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-#createTask {
-  font-family: "Kdam Thmor Pro", sans-serif;
-  width: 80%;
-  background-color: white;
-  border: none;
-  font-size: 2em;
-}
-#createTask:hover,
-#createTask:focus {
-  outline: none;
-}
-#hr {
-  width: 90%;
-  height: 5px;
-  background-color: red;
-  background-image: linear-gradient(to left, #f6b596, #de6189);
-}
-
 body {
   font-family: "Kdam Thmor Pro", sans-serif;
+}
+.welcomeMsg {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.no-task h4 {
+  width: 100%;
+  text-align: center;
+}
+#create_btn {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  top: 20%;
+  left: 5%;
+  background-color: #c2e7ff;
+  padding: 01rem 2rem;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 1px 3px 0 rgb(131, 131, 131);
+}
+#create_btn:hover {
+  box-shadow: 0 1px 5px 0 #ccc, 0 1px 3px 1px #000000;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}
+.cards-container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+}
+.card-wrapper {
+  width: 100%;
+}
+/* .card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+} */
+.card {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  margin: 0 auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 10px;
+}
+.card:before,
+.card:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: #fff;
+  transition: 0.5s;
+  z-index: -1;
+  border-radius: 10px;
+}
+.card:hover:before {
+  transform: rotate(20deg);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+
+  background: rgb(177, 255, 252);
+}
+.card:hover:after {
+  transform: rotate(10deg);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  background: rgb(194, 255, 252);
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.description {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.status {
+  margin: 1rem 0;
+}
+.progress-bar {
+  width: 100%;
+  height: 1rem;
+  border-radius: 20px;
+  background-color: #ccc;
+  margin: 3px 0;
+}
+.blue-bar {
+  background: #007bff;
+  height: 1rem;
+  border-radius: 20px 0 0 20px;
+}
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  z-index: 2; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -43,32 +130,91 @@ body {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
+/* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-  border-radius: 20px;
+  margin: 2% auto; /* 15% from the top and centered */
+  /* padding: 20px; */
+  border: none;
+  width: 60%; /* Could be more or less, depending on screen size */
+  position: relative;
+  border-radius: 10px;
 }
-
+.modal-content h3 {
+  text-align: center;
+  width: 100%;
+  background-color: #28a745;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+  padding: 10px;
+}
 /* The Close Button */
-.close {
-  color: #aaaaaa;
+.close2 {
+  color: #fff;
   float: right;
+  width: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-  color: #000;
+.close2:hover,
+.close2:focus {
+  color: black;
   text-decoration: none;
   cursor: pointer;
 }
-#addTask {
-  background-image: linear-gradient(to left, #f6b596, #de6189);
+
+.content {
+  margin: 1rem 3rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+.left {
+  width: 40%;
+}
+
+.right {
+  width: 45%;
+}
+.input-div {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.input-div label {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.input-div input,
+.input-div select,
+.input-div textarea {
+  /* padding: 5px; */
+  /* border-radius: 5px; */
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #6c757d;
+}
+#percent_num {
+  border-bottom: none;
+}
+#percent_num_new {
+  border-bottom: none;
+}
+.input-div textarea {
+  resize: none;
+}
+.btn_cont {
+  text-align: right;
+  margin: 2rem;
+}
+.btn {
+  background-color: #007bff;
+  border: none;
+  width: 20%;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
 }

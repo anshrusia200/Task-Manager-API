@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
+
+body {
+  font-family: "Kdam Thmor Pro", sans-serif;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.box {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  border-radius: 20px;
+  background-image: linear-gradient(to right, #f6b596, #de6189);
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+  padding: 2rem;
+}
+.profile-img {
+  width: 7rem;
+  height: 7rem;
+  background-image: radial-gradient(#ffffff, #00c8ff);
+  text-align: center;
+  border-radius: 100%;
+}
+.profile-img img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 100%;
+  border: 3px solid rgb(0, 60, 255);
+}
+
+.img-buttons {
+  width: 100%;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-evenly;
+}
+.img-buttons button {
+  border-radius: 20px;
+  background: #3595fc;
+  width: 7rem;
+  color: white;
+  border: none;
+}
+#label-img {
+  background: #3595fc;
+  text-align: center;
+  color: white;
+  padding: 5px;
+  width: 7rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+}
+.right {
+  display: flex;
+  align-items: center;
+}
+#form-profile {
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+.form-input {
+  width: 100%;
+  display: flex;
+  margin: 1rem 0;
+  justify-content: space-between;
+}
+.submit-div {
+  width: 100%;
+  margin: 0 auto;
+  justify-content: flex-end;
+  /* margin-bottom: 80px; */
+}
+.form-input input {
+  background: transparent;
+  color: #fff;
+  border: none;
+  border-bottom: 3px solid transparent;
+  outline: none;
+  margin-left: 2rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+}
+.form-input input::-webkit-outer-spin-button,
+.form-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.form-input input[type="number"] {
+  -moz-appearance: textfield;
+}
+.form-input input:focus {
+  background: transparent;
+  border-bottom: 3px solid #a961d4;
+  outline: none;
+}
+.form-btn {
+  visibility: hidden;
+  background: #3595fc;
+  margin: 0 2px;
+  padding: 7px 25px;
+  border: none;
+  border-radius: 20px;
+  font-family: "Kdam Thmor Pro", sans-serif;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.info {
+  margin: 3rem 0;
+  text-align: center;
+}

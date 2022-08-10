@@ -1,25 +1,47 @@
 const express = require("express");
 const User = require("../models/user");
+const Task = require("../models/task");
 const auth = require("../middleware/auth");
 const multer = require("multer");
 const { sendWelcomeEmail, sendCancelEmail } = require("../emails/account");
 const sharp = require("sharp");
 const validator = require("email-validator");
-const router = new express.Router();
+const router = express.Router();
 
 router.get("/", auth, async (req, res) => {
-  res.render("tasks", {
+  if (!req.user) {
+    return res.render("index");
+  }
+  const tasks = await Task.find({ userId: req.user.userId });
+
+  return res.render("tasks_login", {
     user: req.user,
+    success_message: "",
+    error_message: "",
+    tasks,
   });
 });
+
 router.get("/loggedout", async (req, res) => {
   res.render("index_logout", { success_message: req.flash("success_message") });
 });
 router.get("/about", async (req, res) => {
   res.render("about");
 });
-router.get("/users", async (req, res) => {
-  res.render("register", { error_message: req.flash("error_message") });
+router.get("/users", auth, async (req, res) => {
+  if (!req.user) {
+    return res.render("register", {
+      error_message: req.flash("error_message") || "",
+    });
+  }
+  const tasks = await Task.find({ userId: req.user.userId });
+
+  return res.render("tasks_login", {
+    success_message: "",
+    error_message: "",
+    user: req.user,
+    tasks,
+  });
 });
 router.post("/users", async (req, res) => {
   function UserId() {
@@ -68,13 +90,10 @@ router.post("/users", async (req, res) => {
       sendWelcomeEmail(user.email, user.name);
       const token = await user.generateAuthToken(); // generateAuthToken is a replacble name for function that generates token everytime user registers or logins .....the function name can be changed to anything else
       res.cookie("jwt", token, {
-        expires: new Date(Date.now() + 86400000),
+        expires: new Date(Date.now() + 18000000),
         httpOnly: true,
       });
-      req.flash(
-        "success_message",
-        "Account Created Successfully! Now you can Login. "
-      );
+
       res.redirect("/users/login");
     } catch (e) {
       req.flash("error_message", "User could not be Registered");
@@ -86,12 +105,26 @@ router.post("/users", async (req, res) => {
   }
 });
 
-router.get("/users/login", async (req, res) => {
-  res.render("login", {
-    success_message: req.flash("success_message"),
-    error_message: req.flash("error_message"),
+// router.get("/users/login", auth, async (req, res) => {
+//   res.render("tasks_login");
+// });
+router.get("/users/login", auth, async (req, res) => {
+  if (!req.user) {
+    return res.render("login", {
+      success_message: req.flash("success_message") || "",
+      error_message: req.flash("error_message") || "",
+    });
+  }
+  const tasks = await Task.find({ userId: req.user.userId });
+
+  return res.render("tasks_login", {
+    success_message: "",
+    error_message: "",
+    user: req.user,
+    tasks,
   });
 });
+
 router.post("/users/login", async (req, res) => {
   email = req.body.email;
   password = req.body.password;
@@ -100,7 +133,7 @@ router.post("/users/login", async (req, res) => {
     try {
       const token = await user.generateAuthToken(); // generateAuthToken is a replacble name for function that generates token everytime user registers or logins .....the function name can be changed to anything else
       res.cookie("jwt", token, {
-        expires: new Date(Date.now() + 86400000), //86400000 ms = 1 day of token expiration
+        expires: new Date(Date.now() + 18000000), //18000000 ms = 5 hrs of token expiration
         httpOnly: true,
       });
       req.flash("success_message", "Login Successfull");
@@ -115,17 +148,33 @@ router.post("/users/login", async (req, res) => {
   }
 });
 router.get("/users/tasks", auth, async (req, res) => {
-  res.render("tasks", {
+  if (!req.user) {
+    res.render("index");
+  }
+  const tasks = await Task.find({ userId: req.user.userId });
+
+  res.render("tasks_login", {
     user: req.user,
     success_message: req.flash("success_message"),
+    tasks,
   });
 });
 router.get("/users/about", auth, async (req, res) => {
-  res.render("about_after");
+  if (!req.user) {
+    return res.render("index");
+  }
+  return res.render("about_after", {
+    user: req.user,
+  });
 });
 
 router.get("/users/me", auth, async (req, res) => {
-  res.send(req.user);
+  if (!req.user) {
+    return res.render("index");
+  }
+  res.render("profile", {
+    user: req.user,
+  });
 
   // try {
   //     const users = await User.find({})
@@ -143,6 +192,7 @@ router.get("/users/me", auth, async (req, res) => {
 
 // })
 router.get("/users/logout", auth, async (req, res) => {
+  res.clearCookie("jwt");
   req.user.tokens = req.user.tokens.filter((token) => {
     return token.token !== req.token;
   });
@@ -187,6 +237,7 @@ router.post("/users/logoutAll", auth, async (req, res) => {
 
 router.patch("/users/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
+  console.log(req.body);
   const allowedUpdates = ["name", "email", "password", "age"];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
@@ -237,14 +288,14 @@ const upload = multer({
     if (!file.originalname.match(/\.(jpg|png|jpeg)$/)) {
       return cb(new Error("Please upload a jpg or png"));
     }
-    cb(undefined, true);
+    cb(undefined, true); // cb --> callback --> first argument is whether there is an error and second if is it success
   },
 });
 
 router.post(
   "/users/me/avatar",
   auth,
-  upload.single("avatar"),
+  upload.single("image"),
   async (req, res) => {
     const buffer = await sharp(req.file.buffer)
       .resize({ width: 250, height: 250 })
@@ -253,7 +304,9 @@ router.post(
 
     req.user.avatar = buffer; // buffer contains access to all the binary data of that avatar
     await req.user.save();
-    res.send();
+    res.render("profile", {
+      user: req.user,
+    });
   },
   (error, req, res, next) => {
     res.status(400).send({ error: error.message });
@@ -263,7 +316,6 @@ router.post(
 router.delete("/users/me/avatar", auth, async (req, res) => {
   req.user.avatar = undefined;
   await req.user.save();
-  res.send();
 });
 
 router.get("/users/:id/avatar", async (req, res) => {

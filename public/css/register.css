@@ -23,6 +23,7 @@ body {
 .signup-wrap {
   display: flex;
   justify-content: center;
+  border-radius: 30px;
   flex-direction: column;
   align-items: center;
   width: 500px;
@@ -47,4 +48,14 @@ input:focus {
   outline: none;
   box-shadow: 0 1px 0 0 red;
   border-color: red;
+}
+
+.formBtn {
+  padding: 5px 20px;
+  width: 70%;
+  font-size: 1.3rem;
+  border-radius: 20px;
+  border: none;
+  background-image: linear-gradient(to left, #f7a27b, #de6189);
+  color: white;
 }

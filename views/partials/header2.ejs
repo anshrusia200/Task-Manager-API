@@ -10,6 +10,40 @@
     justify-content: space-around;
   }
 
+  .a-tag {
+    text-decoration: none;
+    color: #007BFF;
+  }
+
+  .user-image {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 10%;
+  }
+
+  .prof-img {
+    width: 4rem;
+    height: 4rem;
+    background-image: radial-gradient(#ffffff, #00c8ff);
+    text-align: center;
+    border-radius: 100%;
+    /* margin: 0 2rem; */
+  }
+
+  .prof-img img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    border: 3px solid #007BFF;
+  }
+
+  .user-name {
+    font-size: 20px;
+    margin: 1rem;
+
+  }
+
   @media only screen and (max-width:992px) {
     .navbar-brand {
       margin-left: -20px;
@@ -50,7 +84,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/users/me">Profile</a>
+          <a class="nav-link" href="/users/me" id="profile">Profile</a>
         </li>
 
         <li class="nav-item">
@@ -59,5 +93,20 @@
 
       </ul>
     </div>
+    <a href="/users/me" class="a-tag">
+      <div class="user-image">
+        <div class="prof-img">
+          <img src="/users/<%= user.id%>/avatar" onerror="this.onerror=null;this.src='../images/User.png';"
+            id="profile-img-tag">
+        </div>
+        <div class="user-name">
+          <%= user.name%>
+        </div>
+      </div>
+    </a>
   </div>
 </nav>
+
+<script>
+
+</script>

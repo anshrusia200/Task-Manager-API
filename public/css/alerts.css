@@ -1,4 +1,21 @@
 .alert {
   z-index: 2;
   margin: 20px;
+  padding: 10px 10px 13px 16px;
+}
+.close {
+  background-color: Transparent;
+  border: none;
+  margin-left: 5px;
+  color: #8d8d8d;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.alert span {
+  font-size: 1.5rem;
+  font-weight: bold;
 }

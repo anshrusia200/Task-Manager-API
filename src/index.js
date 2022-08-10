@@ -15,7 +15,7 @@ const taskRouter = require("./routers/task");
 // const User = require('./models/user')
 
 const app = express();
-const port = 5500;
+const port = 3000;
 
 const publicDirectoryPath = path.join(__dirname, "../public"); //
 // const viewsPath = path.join(__dirname, "../views");
@@ -42,11 +42,8 @@ app.use(flash());
 //   res.locals.error = req.flash("error");
 //   next();
 // });
-
 app.use(userRouter);
 app.use(taskRouter);
-
-app.use(express.json()); // express.json grab s incoming json
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);

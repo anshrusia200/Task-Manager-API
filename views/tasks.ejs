@@ -2,34 +2,36 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Task</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/createTask.css">
-  <link rel="stylesheet" href="/css/alerts.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/createTask.css">
+    <link rel="stylesheet" href="/css/alerts.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-  <%- include ('partials/header2')%>
+    <%- include ('partials/header2')%>
 
 
-    <br>
-    <!-- <div id="createTaskContainer">
+        <br>
+        <!-- <div id="createTaskContainer">
       <button id="createTask">Click Here to create a New Task</button>
       <div id="hr"></div>
     </div>  -->
 
 
 
-    <!-- The Modal -->
-    <!-- <div id="myModal" class="modal"> -->
+        <!-- The Modal -->
+        <!-- <div id="myModal" class="modal"> -->
 
-    <!-- Modal content -->
-    <!-- <div class="modal-content">
+        <!-- Modal content -->
+        <!-- <div class="modal-content">
         <span class="close">&times;</span>
         <form action="">
           <input type="text" placeholder="Create a new Task"><br>
@@ -37,30 +39,28 @@
         </form>
       </div> -->
 
-    <!-- </div> -->
+        <!-- </div> -->
 
 
-    <% if(success_message.length> 0 ){ %>
-      <div class="alert alert-success position-absolute" style="top: 0; right: 0; z-index: 2;" role="alert">
-        <%= success_message %>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true" onclick="div.style.display = 'none';">&times;</span>
-          </button>
-      </div>
-      <% } %>
         <div class="welcomeMsg">
-          <h3>Hello, welcome back <%= user.name %>
-          </h3>
+            <h3>Hello, welcome back <%= user.name %>
+            </h3>
 
         </div>
 
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-          crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
         <script src="/js/tasks.js"></script>
         <script src="/js/alerts.js"></script>
+        <!-- <script type="text/javascript">
+            window.history.forward();
+            function noBack() {
+                window.history.forward();
+            }
+        </script> -->
 
 </body>
 
