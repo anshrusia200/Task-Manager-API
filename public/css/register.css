@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Kdam+Thmor+Pro&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Kdam+Thmor+Pro&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap");
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 body {
-  font-family: "Kdam Thmor Pro", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   height: 100vh;
   /* display: flex;
@@ -43,6 +44,7 @@ input {
   padding: 10px;
   border-bottom: 2px solid gray;
   transition: 500ms ease all;
+  font-family: "Poppins", sans-serif;
 }
 input:focus {
   outline: none;

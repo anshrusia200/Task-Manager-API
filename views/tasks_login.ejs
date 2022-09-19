@@ -34,7 +34,9 @@
         <div class="welcomeMsg">
           <h3>Hello, welcome <%= user.name %>
           </h3>
-
+          <div class="create_btn_cont">
+            <button id="create_btn" onclick="showModal2();populateModal2();">Create New Task</button>
+          </div>
         </div>
         <% if(tasks.length==0) {%>
           <div class="no-task">
@@ -42,9 +44,7 @@
           </div>
           <%}%>
 
-            <div class="create_btn_cont">
-              <button id="create_btn" onclick="showModal2();populateModal2();">Create New Task</button>
-            </div>
+
             <div id="myModal2" class="modal">
 
               <!-- Modal content -->

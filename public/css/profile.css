@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap"); */
 
 body {
   font-family: "Kdam Thmor Pro", sans-serif;
@@ -125,4 +125,34 @@ body {
 .info {
   margin: 3rem 0;
   text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .box {
+    flex-direction: column;
+    align-items: center;
+  }
+  .left {
+    width: 100%;
+  }
+  .right {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .box {
+    width: 90%;
+  }
+}
+@media only screen and (max-width: 462px) {
+  .form-input label {
+    width: 40%;
+  }
+  .form-input input {
+    width: 60%;
+  }
+  .img-buttons {
+    width: 100%;
+  }
 }

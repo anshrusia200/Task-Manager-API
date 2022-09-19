@@ -7,7 +7,7 @@ const sendWelcomeEmail = (email, name) => {
     to: email,
     from: "rusiaansh123@gmail.com",
     subject: "Thanks for joining in!",
-    text: `Welcome to the app, ${name}. Let me know how you get along with the app.`,
+    text: `Welcome to the app, <strong> ${name} </strong>. Let me know how you get along with the app.`,
   });
 };
 
@@ -20,7 +20,16 @@ const sendCancelEmail = (email, name) => {
   });
 };
 
+const sendPasswordEmail = (email, name, link) => {
+  sgMail.send({
+    to: email,
+    from: "rusiaansh123@gmail.com",
+    subject: "Password Reset !",
+    html: `<p style="font-size: 20px;">Hey <strong> ${name} </strong>, Your request for passoword reset is approved . Please click on the button to reset your password 👇: </p> <br> <a href="${link}"><button style="padding: 10px; background-color: #007bff;font-size: 20px;color: #fff; border-radius:10px;border:none;">Password Reset</button></a>`,
+  });
+};
 module.exports = {
   sendWelcomeEmail, // sendWelcomeEmail : sendWelcomeEmail ko es6 shorthand se likha h
   sendCancelEmail,
+  sendPasswordEmail,
 };

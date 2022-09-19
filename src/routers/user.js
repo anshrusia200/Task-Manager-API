@@ -2,8 +2,13 @@ const express = require("express");
 const User = require("../models/user");
 const Task = require("../models/task");
 const auth = require("../middleware/auth");
+const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const { sendWelcomeEmail, sendCancelEmail } = require("../emails/account");
+const {
+  sendWelcomeEmail,
+  sendCancelEmail,
+  sendPasswordEmail,
+} = require("../emails/account");
 const sharp = require("sharp");
 const validator = require("email-validator");
 const router = express.Router();
@@ -43,6 +48,7 @@ router.get("/users", auth, async (req, res) => {
     tasks,
   });
 });
+
 router.post("/users", async (req, res) => {
   function UserId() {
     var text = "";
@@ -147,9 +153,88 @@ router.post("/users/login", async (req, res) => {
     res.redirect("/users/login");
   }
 });
+
+router.get("/users/forgotPassword", async (req, res) => {
+  res.render("forgot_pass", {
+    error_message: req.flash("error_message"),
+    success_message: req.flash("success_message"),
+  });
+});
+router.post("/users/forgotPassword", async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (user == null) {
+    req.flash("error_message", "Email not registered");
+    return res.redirect("/users/forgotPassword");
+  } else {
+    console.log(user.email);
+    const secret = process.env.JWT_SECRET + user.password;
+    const payload = {
+      email: user.email,
+      id: user.userId,
+    };
+    const token = jwt.sign(payload, secret, { expiresIn: "10min" });
+
+    const link =
+      req.headers.origin + `/users/reset-password/${user.userId}/${token}`;
+    sendPasswordEmail(user.email, user.name, link);
+    // console.log(link);
+    req.flash("success_message", "Password Link sent to your email");
+    return res.redirect("/users/forgotPassword");
+  }
+});
+
+router.get("/users/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  const user = await User.findOne({ userId: id });
+  // console.log(user.email);
+  if (user == null) {
+    res.flash("error_message", "Invalid Link");
+    return res.redirect("/users/forgotPassword");
+  }
+  const secret = process.env.JWT_SECRET + user.password;
+  try {
+    const payload = jwt.verify(token, secret);
+
+    res.render("reset_password", {
+      email: user.email,
+      id: user.userId,
+      token: token,
+      success_message: "",
+      error_message: "",
+    });
+  } catch (error) {
+    req.flash("error_message", "Invalid link");
+    return res.redirect("/users/forgotPassword");
+  }
+});
+
+router.post("/users/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  const user = await User.findOne({ userId: id });
+
+  if (user == null) {
+    req.flash("error_message", "Reset request expired or invalid");
+    return res.redirect("/users/forgotPassword");
+  }
+  const secret = process.env.JWT_SECRET + user.password;
+
+  try {
+    const payload = jwt.verify(token, secret);
+    if (req.body.password == req.body.confirm_password) {
+      user.password = req.body.password;
+      user.save();
+      req.flash(
+        "success_message",
+        "Password reset successfull. Login with new password"
+      );
+      return res.redirect("/users/login");
+    }
+  } catch (error) {}
+});
+
 router.get("/users/tasks", auth, async (req, res) => {
   if (!req.user) {
-    res.render("index");
+    return res.render("index");
   }
   const tasks = await Task.find({ userId: req.user.userId });
 
@@ -197,7 +282,7 @@ router.get("/users/logout", auth, async (req, res) => {
     return token.token !== req.token;
   });
   await req.user.save();
-  console.log("loggedOut");
+
   req.flash("success_message", "You are logged out");
   res.redirect("/loggedout");
 });
@@ -237,7 +322,7 @@ router.post("/users/logoutAll", auth, async (req, res) => {
 
 router.patch("/users/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  console.log(req.body);
+
   const allowedUpdates = ["name", "email", "password", "age"];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)

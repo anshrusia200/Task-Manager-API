@@ -31,7 +31,8 @@ router.post("/tasks", auth, async (req, res) => {
     res.status(201).send(task);
   } catch (e) {
     console.log(e);
-    res.status(400).send(e);
+    req.flash("error_message", "Task could not be saved. Please try again.");
+    res.redirect("/users/tasks");
   }
   // task.save().then(() => {
   //          res.status(201).send(task)
