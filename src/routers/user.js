@@ -199,8 +199,8 @@ router.get("/users/reset-password/:id/:token", async (req, res) => {
       email: user.email,
       id: user.userId,
       token: token,
-      success_message: "",
-      error_message: "",
+      success_message: req.flash("success_message"),
+      error_message: req.flash("error_message"),
     });
   } catch (error) {
     req.flash("error_message", "Invalid link");
@@ -220,6 +220,10 @@ router.post("/users/reset-password/:id/:token", async (req, res) => {
 
   try {
     const payload = jwt.verify(token, secret);
+    if (req.body.password.length < 7 || req.body.confirm_password.length < 7) {
+      req.flash("error_message", "Password must be minimum 7 characters");
+      return res.redirect(`/users/reset-password/${id}/${token}`);
+    }
     if (req.body.password == req.body.confirm_password) {
       user.password = req.body.password;
       user.save();
@@ -228,6 +232,9 @@ router.post("/users/reset-password/:id/:token", async (req, res) => {
         "Password reset successfull. Login with new password"
       );
       return res.redirect("/users/login");
+    } else {
+      req.flash("error_message", "Password and confirm password must be same");
+      return res.redirect(`/users/reset-password/${id}/${token}`);
     }
   } catch (error) {}
 });
@@ -257,8 +264,10 @@ router.get("/users/me", auth, async (req, res) => {
   if (!req.user) {
     return res.render("index");
   }
+  const tasks = await Task.find({ userId: req.user.userId });
   res.render("profile", {
     user: req.user,
+    tasks,
   });
 
   // try {

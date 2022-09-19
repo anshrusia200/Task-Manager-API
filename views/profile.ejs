@@ -45,18 +45,41 @@
         <section class="main">
             <div class="box">
                 <div class="left">
-                    <div class="profile-img">
-                        <img src="/users/<%= user.id%>/avatar"
-                            onerror="this.onerror=null;this.src='../images/User.png';" id="profile-img-tag">
+                    <div class="left-top">
+                        <div class="profile-img">
+                            <img src="/users/<%= user.id%>/avatar"
+                                onerror="this.onerror=null;this.src='../images/User.png';" id="profile-img-tag">
 
+                        </div>
+                        <div class=img-buttons>
+                            <button onclick="deleteImg()" id="delete-img">Delete</button>
+
+                            <form action="/users/me/avatar" method="post" enctype="multipart/form-data" id="image-form">
+                                <label for="image" id="label-img">Edit</label>
+                                <input type="file" id="image" name="image" style="display:none">
+                            </form>
+                        </div>
                     </div>
-                    <div class=img-buttons>
-                        <button onclick="deleteImg()" id="delete-img">Delete</button>
-
-                        <form action="/users/me/avatar" method="post" enctype="multipart/form-data" id="image-form">
-                            <label for="image" id="label-img">Edit</label>
-                            <input type="file" id="image" name="image" style="display:none">
-                        </form>
+                    <div class="left-bottom">
+                        <div class="stats">
+                            <h4>Your Tasks</h4>
+                            <div class="stat-row">
+                                <div class="stat-type">Total</div>
+                                <div class="stat-value">2</div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-type">Not started</div>
+                                <div class="stat-value">2</div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-type">In progress</div>
+                                <div class="stat-value">2</div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-type">Completed</div>
+                                <div class="stat-value">2</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="right">
