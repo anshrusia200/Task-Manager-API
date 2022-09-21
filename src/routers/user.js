@@ -244,7 +244,10 @@ router.get("/users/tasks", auth, async (req, res) => {
     return res.render("index");
   }
   const tasks = await Task.find({ userId: req.user.userId });
-
+  const match = {};
+  if (req.query.status) {
+    match.status = req.query.status;
+  }
   res.render("tasks_login", {
     user: req.user,
     success_message: req.flash("success_message"),
@@ -264,10 +267,29 @@ router.get("/users/me", auth, async (req, res) => {
   if (!req.user) {
     return res.render("index");
   }
-  const tasks = await Task.find({ userId: req.user.userId });
+  const tasks_completed = await Task.find({
+    userId: req.user.userId,
+    status: "Completed",
+  });
+  const completed = tasks_completed.length;
+  const tasks_not_started = await Task.find({
+    userId: req.user.userId,
+    status: "Not Started",
+  });
+  const not_started = tasks_not_started.length;
+  const tasks_in_progress = await Task.find({
+    userId: req.user.userId,
+    status: "In Progress",
+  });
+  const in_progress = tasks_in_progress.length;
+  const total = completed + in_progress + not_started;
+  console.log(total);
   res.render("profile", {
     user: req.user,
-    tasks,
+    total,
+    completed,
+    not_started,
+    in_progress,
   });
 
   // try {

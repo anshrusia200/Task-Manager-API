@@ -64,20 +64,41 @@
                         <div class="stats">
                             <h4>Your Tasks</h4>
                             <div class="stat-row">
-                                <div class="stat-type">Total</div>
-                                <div class="stat-value">2</div>
+                                <div class="stat-type"
+                                    style="background-color: rgb(214, 214, 214); border: 1px solid rgb(170, 170, 170);">
+                                    Total</div>
+                                <div class="stat-value"
+                                    style="background-color: rgb(214, 214, 214); border: 1px solid rgb(170, 170, 170);">
+                                    <%= total %>
+                                </div>
                             </div>
                             <div class="stat-row">
-                                <div class="stat-type">Not started</div>
-                                <div class="stat-value">2</div>
+                                <div class="stat-type"
+                                    style="color: red; background-color: #ffc0c0; border: 1px solid #ff9c9c;">Not
+                                    started</div>
+                                <div class="stat-value"
+                                    style="color: red; background-color: #ffc0c0; border: 1px solid #ff9c9c;">
+                                    <%= not_started %>
+                                </div>
                             </div>
                             <div class="stat-row">
-                                <div class="stat-type">In progress</div>
-                                <div class="stat-value">2</div>
+                                <div class="stat-type"
+                                    style="color: blue; background-color: rgb(194, 224, 255); border: 1px solid rgb(141, 175, 255);">
+                                    In
+                                    progress</div>
+                                <div class="stat-value"
+                                    style="color: blue; background-color: rgb(194, 224, 255); border: 1px solid rgb(141, 175, 255);">
+                                    <%= in_progress %>
+                                </div>
                             </div>
                             <div class="stat-row">
-                                <div class="stat-type">Completed</div>
-                                <div class="stat-value">2</div>
+                                <div class="stat-type"
+                                    style="color: #198754; background-color: #E8F3EE; border: 1px solid #b8f5da;">
+                                    Completed</div>
+                                <div class="stat-value"
+                                    style="color: #198754; background-color: #E8F3EE; border: 1px solid #b8f5da;">
+                                    <%= completed %>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,17 +108,22 @@
 
                         <form action="/users/me" id="form-profile">
                             <div class="form-input">
-                                <label for="name" class="form-label">Full Name</label>
+                                <label for="name" class="form-label"
+                                    style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Full
+                                    Name</label>
                                 <input type="text" id="name" class="input-tags" value="<%= user.name %>">
                             </div>
 
                             <div class="form-input">
-                                <label for="email" class="form-label">Email Id</label>
+                                <label for="email" class="form-label"
+                                    style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Email
+                                    Id</label>
                                 <input type="email" id="email" class="input-tags" value="<%= user.email %>">
                             </div>
 
                             <div class="form-input">
-                                <label for="age" class="form-label">Age</label>
+                                <label for="age" class="form-label"
+                                    style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Age</label>
                                 <input type="number" id="age" class="input-tags" value="<%= user.age %>">
                             </div>
 

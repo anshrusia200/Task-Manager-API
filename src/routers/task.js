@@ -49,9 +49,9 @@ router.get("/tasks", auth, async (req, res) => {
   const match = {};
   const sort = {};
 
-  if (req.query.completed) {
+  if (req.query.status) {
     //remember that req.query.completed will give a string and not a boolean but we want a boolean
-    match.completed = req.query.completed === "true";
+    match.status = req.query.status;
   }
   if (req.query.sortBy) {
     const parts = req.query.sortBy.split(":"); // parts krke ek array bana di h jisme createdAt , asc/desc 2 elements rhenge
