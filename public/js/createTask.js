@@ -96,3 +96,11 @@ $("#create_btn_new").on("click", () => {
     });
   }
 });
+var array_status = window.location.href.split("=");
+var status_val = decodeURIComponent(array_status[1]);
+console.log(status_val);
+if (status_val != undefined) {
+  document.getElementById("status-value").innerHTML = status_val;
+} else {
+  document.getElementById("status-value").innerHTML = "All";
+}

@@ -59,6 +59,12 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: Buffer,
     },
+    tasks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task",
+      },
+    ],
   },
   {
     timestamps: true,

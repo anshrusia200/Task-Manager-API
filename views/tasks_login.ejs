@@ -34,8 +34,21 @@
         <div class="welcomeMsg">
           <h3>Hello, welcome <%= user.name %>
           </h3>
-          <div class="create_btn_cont">
-            <button id="create_btn" onclick="showModal2();populateModal2();">Create New Task</button>
+          <div class="top-buttons">
+            <div class="create_btn_cont">
+              <button id="create_btn" onclick="showModal2();populateModal2();">Create New Task</button>
+            </div>
+            <div class="filter-status">
+              <div class="dropdown">
+                <button class="dropbtn">Status : <span id="status-value">All</span></button>
+                <div class="dropdown-content">
+                  <a href="/users/tasks">All</a>
+                  <a href="/users/tasks?status=Completed">Completed</a>
+                  <a href="/users/tasks?status=Not%20Started">Not Started</a>
+                  <a href="/users/tasks?status=In%20Progress">In Progress</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <% if(tasks.length==0) {%>

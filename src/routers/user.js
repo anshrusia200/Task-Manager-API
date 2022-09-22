@@ -243,10 +243,19 @@ router.get("/users/tasks", auth, async (req, res) => {
   if (!req.user) {
     return res.render("index");
   }
-  const tasks = await Task.find({ userId: req.user.userId });
   const match = {};
+  // const sort = {};
+  var tasks = await Task.find({ userId: req.user.userId });
   if (req.query.status) {
     match.status = req.query.status;
+
+    var tasks2 = tasks.filter(checkStatus);
+    function checkStatus(task) {
+      if (task.status === match.status) {
+        return task;
+      }
+    }
+    tasks = tasks2;
   }
   res.render("tasks_login", {
     user: req.user,
