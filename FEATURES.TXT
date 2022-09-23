@@ -1,3 +1,8 @@
-1. Forgot passwords 
-2. filter the task according to date , percent complete, and status of
-3. reset passwords 
+1. filter the task according to date , percent complete
+2. logout all devices 
+3. delete account 
+
+
+
+
+

@@ -96,11 +96,34 @@ $("#create_btn_new").on("click", () => {
     });
   }
 });
+
 var array_status = window.location.href.split("=");
 var status_val = decodeURIComponent(array_status[1]);
 console.log(status_val);
-if (status_val != undefined) {
+if (
+  status_val == "Not Started" ||
+  status_val == "Completed" ||
+  status_val == "In Progress"
+) {
   document.getElementById("status-value").innerHTML = status_val;
 } else {
   document.getElementById("status-value").innerHTML = "All";
 }
+
+let search = document.getElementById("searchBox");
+search.addEventListener("input", function () {
+  let inputVal = search.value.toLowerCase();
+  console.log("Input event fired!", inputVal);
+  let taskCards = document.getElementsByClassName("card-head");
+  Array.from(taskCards).forEach(function (element) {
+    let cardTxt = element
+      .getElementsByTagName("div")[0]
+      .innerText.toLowerCase();
+    if (cardTxt.includes(inputVal)) {
+      element.parentElement.parentElement.style.display = "block";
+    } else {
+      element.parentElement.parentElement.style.display = "none";
+    }
+    // console.log(cardTxt);
+  });
+});

@@ -18,6 +18,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+.filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 #create_btn {
   background-color: #c2e7ff;
   padding: 0.7rem 2rem;
@@ -28,17 +33,22 @@ body {
 #create_btn:hover {
   box-shadow: 0 1px 5px 0 #ccc, 0 1px 3px 1px #000000;
 }
+.filter-status {
+  margin: 2rem;
+}
+
 .dropbtn {
-  background-color: #04aa6d;
-  color: white;
-  padding: 16px;
+  color: black;
+  padding: 10px;
   font-size: 16px;
   border: none;
+  background-color: #fff;
 }
 
 .dropdown {
   position: relative;
-  display: inline-block;
+  border-bottom: 2px solid black;
+  background-color: #fff;
 }
 
 .dropdown-content {
@@ -48,6 +58,7 @@ body {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  margin-top: 3px;
 }
 
 .dropdown-content a {
@@ -64,9 +75,22 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.fa-caret-down {
+  margin-left: 1rem;
+}
 
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+#searchBox {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.788);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+  /* width: 30vh; */
+}
+.fa-magnifying-glass {
+  margin-left: 2px;
 }
 .wrapper {
   display: flex;
@@ -83,12 +107,6 @@ body {
 .card-wrapper {
   width: 100%;
 }
-/* .card {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-} */
 .card {
   position: relative;
   width: 100%;
@@ -113,17 +131,6 @@ body {
   z-index: -1;
   border-radius: 10px;
 }
-/* .card:hover:before {
-  transform: rotate(20deg);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-
-  background: rgb(177, 255, 252);
-}
-.card:hover:after {
-  transform: rotate(10deg);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-  background: rgb(194, 255, 252);
-} */
 .card-head {
   display: flex;
   justify-content: space-between;
@@ -233,8 +240,6 @@ body {
 .input-div input,
 .input-div select,
 .input-div textarea {
-  /* padding: 5px; */
-  /* border-radius: 5px; */
   border: none;
   outline: none;
   border-bottom: 2px solid #6c757d;
@@ -272,6 +277,11 @@ body {
     width: 50%;
   }
 }
+@media only screen and (max-width: 660px) {
+  .top-buttons {
+    flex-direction: column;
+  }
+}
 @media only screen and (max-width: 575px) {
   .cards-container {
     grid-template-columns: repeat(1, 1fr);
@@ -289,3 +299,12 @@ body {
     width: 100%;
   }
 }
+
+@media only screen and (max-width: 460px) {
+  .filters {
+    flex-direction: column;
+  }
+  #searchBox {
+    width: 70%;
+  }
+} ;

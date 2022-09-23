@@ -9,6 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1rem;
 }
 .box {
   height: 100%;
@@ -221,8 +222,15 @@ body {
 }
 
 .info {
-  margin: 2rem 0;
+  margin: 1rem 0;
   text-align: center;
+}
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.account-btn {
+  border-radius: 5px;
 }
 @media only screen and (max-width: 1000px) {
   .box {

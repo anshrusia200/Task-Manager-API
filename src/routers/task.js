@@ -3,9 +3,6 @@ const Task = require("../models/task");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 
-// router.get("/new-task", auth, async (req, res) => {
-//   res.render("task");
-// });
 router.post("/tasks", auth, async (req, res) => {
   //const task  = new Task(req.body)
   function TaskId() {
@@ -34,11 +31,6 @@ router.post("/tasks", auth, async (req, res) => {
     req.flash("error_message", "Task could not be saved. Please try again.");
     res.redirect("/users/tasks ");
   }
-  // task.save().then(() => {
-  //          res.status(201).send(task)
-  //      }).catch((e)=> {
-  //          res.status(400).send(e)
-  //      })
 });
 
 // GET /tasks?completed=true
@@ -69,24 +61,13 @@ router.get("/tasks", auth, async (req, res) => {
       options: {
         limit: parseInt(req.query.limit),
         skip: parseInt(req.query.skip),
-        sort, // :  {
-        //     // createdAt : 1        //descending is -1
-        //                           // ascending is 1
-        //     completed : -1    // -1 is true first
-        //                       // 1 is false first
-        // }
+        sort,
       },
     });
     res.send(req.user.tasks);
   } catch (e) {
     res.status(500).send();
   }
-
-  // Task.find({}).then((tasks) => {
-  //     res.send(tasks)
-  // }).catch((e) => {
-  //     res.status(500).send()
-  // })
 });
 
 router.get("/tasks/:id", auth, async (req, res) => {
@@ -101,14 +82,6 @@ router.get("/tasks/:id", auth, async (req, res) => {
   } catch (e) {
     res.status(500).send();
   }
-
-  // Task.findById(_id).then((task) => {
-  //     if(!task) res.status(404).send()
-
-  //     res.send(task)
-  // }).catch((e) => {
-  //     res.status(500).send()
-  // })
 });
 
 router.patch("/tasks/:id", auth, async (req, res) => {

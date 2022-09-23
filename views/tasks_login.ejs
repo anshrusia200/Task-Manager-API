@@ -38,19 +38,27 @@
             <div class="create_btn_cont">
               <button id="create_btn" onclick="showModal2();populateModal2();">Create New Task</button>
             </div>
-            <div class="filter-status">
-              <div class="dropdown">
-                <button class="dropbtn">Status : <span id="status-value">All</span></button>
-                <div class="dropdown-content">
-                  <a href="/users/tasks">All</a>
-                  <a href="/users/tasks?status=Completed">Completed</a>
-                  <a href="/users/tasks?status=Not%20Started">Not Started</a>
-                  <a href="/users/tasks?status=In%20Progress">In Progress</a>
+            <div class="filters">
+              <div class="filter-status">
+                <div class="dropdown">
+                  <button class="dropbtn">Status : <span id="status-value"></span><i
+                      class="fa-solid fa-caret-down"></i></button>
+                  <div class="dropdown-content">
+                    <a href="/users/tasks">All</a>
+                    <a href="/users/tasks?status=Completed">Completed</a>
+                    <a href="/users/tasks?status=Not%20Started">Not Started</a>
+                    <a href="/users/tasks?status=In%20Progress">In Progress</a>
+                  </div>
                 </div>
+              </div>
+              <div class="searchBar">
+                <input type="search" placeholder="Search Tasks" aria-label="Search" id="searchBox"><i
+                  class="fa-solid fa-magnifying-glass"></i>
               </div>
             </div>
           </div>
         </div>
+
         <% if(tasks.length==0) {%>
           <div class="no-task">
             <h4> No tasks coming up! Take a break &#128564;</h4>

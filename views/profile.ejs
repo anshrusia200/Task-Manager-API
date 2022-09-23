@@ -41,151 +41,174 @@
       </div> -->
 
         <!-- </div> -->
-
-        <section class="main">
-            <div class="box">
-                <div class="left">
-                    <div class="left-top">
-                        <div class="profile-img">
-                            <img src="/users/<%= user.id%>/avatar"
-                                onerror="this.onerror=null;this.src='../images/User.png';" id="profile-img-tag">
-
-                        </div>
-                        <div class=img-buttons>
-                            <button onclick="deleteImg()" id="delete-img">Delete</button>
-
-                            <form action="/users/me/avatar" method="post" enctype="multipart/form-data" id="image-form">
-                                <label for="image" id="label-img">Edit</label>
-                                <input type="file" id="image" name="image" style="display:none">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="left-bottom">
-                        <div class="stats">
-                            <h4>Your Tasks</h4>
-                            <div class="stat-row">
-                                <div class="stat-type"
-                                    style="background-color: rgb(214, 214, 214); border: 1px solid rgb(170, 170, 170);">
-                                    Total</div>
-                                <div class="stat-value"
-                                    style="background-color: rgb(214, 214, 214); border: 1px solid rgb(170, 170, 170);">
-                                    <%= total %>
-                                </div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="stat-type"
-                                    style="color: red; background-color: #ffc0c0; border: 1px solid #ff9c9c;">Not
-                                    started</div>
-                                <div class="stat-value"
-                                    style="color: red; background-color: #ffc0c0; border: 1px solid #ff9c9c;">
-                                    <%= not_started %>
-                                </div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="stat-type"
-                                    style="color: blue; background-color: rgb(194, 224, 255); border: 1px solid rgb(141, 175, 255);">
-                                    In
-                                    progress</div>
-                                <div class="stat-value"
-                                    style="color: blue; background-color: rgb(194, 224, 255); border: 1px solid rgb(141, 175, 255);">
-                                    <%= in_progress %>
-                                </div>
-                            </div>
-                            <div class="stat-row">
-                                <div class="stat-type"
-                                    style="color: #198754; background-color: #E8F3EE; border: 1px solid #b8f5da;">
-                                    Completed</div>
-                                <div class="stat-value"
-                                    style="color: #198754; background-color: #E8F3EE; border: 1px solid #b8f5da;">
-                                    <%= completed %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="full-details">
-
-                        <form action="/users/me" id="form-profile">
-                            <div class="form-input">
-                                <label for="name" class="form-label"
-                                    style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Full
-                                    Name</label>
-                                <input type="text" id="name" class="input-tags" value="<%= user.name %>">
-                            </div>
-
-                            <div class="form-input">
-                                <label for="email" class="form-label"
-                                    style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Email
-                                    Id</label>
-                                <input type="email" id="email" class="input-tags" value="<%= user.email %>">
-                            </div>
-
-                            <div class="form-input">
-                                <label for="age" class="form-label"
-                                    style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Age</label>
-                                <input type="number" id="age" class="input-tags" value="<%= user.age %>">
-                            </div>
-
-                        </form>
-                        <div class="form-input submit-div">
-                            <button type="submit" id="submit" class="form-btn">Save</button>
-                            <button type="submit" id="reset" class="form-btn">Reset</button>
-                        </div>
-                        <div class="info">
-                            ** You can Update the profile by clicking on the field you want to update **
-                        </div>
-                    </div>
-                </div>
+        <% if(error_message !='' ){ %>
+            <div class="alert alert-danger position-absolute" style="top: 0; right: 0;" role="alert">
+                <%= error_message %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        onclick="this.parentNode.style.display = 'none';">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
             </div>
-        </section>
-        <script>
 
-            $("#submit").on("click", function () {
-                var formData = {
-                    name: $("#name").val(),
-                    email: $("#email").val(),
-                    password: $("#password").val(),
-                    age: $("#age").val(),
-                };
-                console.log(formData);
-                $.ajax({
-                    type: "PATCH",
-                    url: "/users/me",
-                    data: formData,
-                });
-                window.location.reload();
-            });
+            <% } %>
+                <section class="main">
+                    <div class="box">
+                        <div class="left">
+                            <div class="left-top">
+                                <div class="profile-img">
+                                    <img src="/users/<%= user.id%>/avatar"
+                                        onerror="this.onerror=null;this.src='../images/User.png';" id="profile-img-tag">
 
-            $("#reset").on("click", () => {
-                window.location.reload();
-            })
+                                </div>
+                                <div class=img-buttons>
+                                    <button onclick="deleteImg()" id="delete-img">Delete</button>
 
-            function deleteImg() {
+                                    <form action="/users/me/avatar" method="post" enctype="multipart/form-data"
+                                        id="image-form">
+                                        <label for="image" id="label-img">Edit</label>
+                                        <input type="file" id="image" name="image" style="display:none">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="left-bottom">
+                                <div class="stats">
+                                    <h4>Your Tasks</h4>
+                                    <div class="stat-row">
+                                        <div class="stat-type"
+                                            style="background-color: rgb(214, 214, 214); border: 1px solid rgb(170, 170, 170);">
+                                            Total</div>
+                                        <div class="stat-value"
+                                            style="background-color: rgb(214, 214, 214); border: 1px solid rgb(170, 170, 170);">
+                                            <%= total %>
+                                        </div>
+                                    </div>
+                                    <div class="stat-row">
+                                        <div class="stat-type"
+                                            style="color: red; background-color: #ffc0c0; border: 1px solid #ff9c9c;">
+                                            Not
+                                            started</div>
+                                        <div class="stat-value"
+                                            style="color: red; background-color: #ffc0c0; border: 1px solid #ff9c9c;">
+                                            <%= not_started %>
+                                        </div>
+                                    </div>
+                                    <div class="stat-row">
+                                        <div class="stat-type"
+                                            style="color: blue; background-color: rgb(194, 224, 255); border: 1px solid rgb(141, 175, 255);">
+                                            In
+                                            progress</div>
+                                        <div class="stat-value"
+                                            style="color: blue; background-color: rgb(194, 224, 255); border: 1px solid rgb(141, 175, 255);">
+                                            <%= in_progress %>
+                                        </div>
+                                    </div>
+                                    <div class="stat-row">
+                                        <div class="stat-type"
+                                            style="color: #198754; background-color: #E8F3EE; border: 1px solid #b8f5da;">
+                                            Completed</div>
+                                        <div class="stat-value"
+                                            style="color: #198754; background-color: #E8F3EE; border: 1px solid #b8f5da;">
+                                            <%= completed %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="full-details">
 
-                $.ajax({
-                    type: "DELETE",
-                    url: "/users/me/avatar",
-                });
-                window.location.href = "/users/me";
+                                <form action="/users/me" id="form-profile">
+                                    <div class="form-input">
+                                        <label for="name" class="form-label"
+                                            style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Full
+                                            Name</label>
+                                        <input type="text" id="name" class="input-tags" value="<%= user.name %>">
+                                    </div>
 
-            };
-            document.getElementById("image").onchange = function () {
-                document.getElementById("image-form").submit();
-            };
+                                    <div class="form-input">
+                                        <label for="email" class="form-label"
+                                            style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Email
+                                            Id</label>
+                                        <input type="email" id="email" class="input-tags" value="<%= user.email %>">
+                                    </div>
+
+                                    <div class="form-input">
+                                        <label for="age" class="form-label"
+                                            style="background-color: #ffc0c0; border: 1px solid #ff9c9c;">Age</label>
+                                        <input type="number" id="age" class="input-tags" value="<%= user.age %>">
+                                    </div>
+
+                                </form>
+                                <div class="form-input submit-div">
+                                    <button type="submit" id="submit" class="form-btn">Save</button>
+                                    <button type="submit" id="reset" class="form-btn">Reset</button>
+                                </div>
+                                <div class="info">
+                                    ** You can Update the profile by clicking on the field you want to update **
+                                </div>
+                                <div class="bottom-buttons">
+                                    <div class="logout-all">
+                                        <button class="account-btn">
+                                            Logout from all devices
+                                        </button>
+                                    </div>
+                                    <div class="delete-account">
+                                        <button class="account-btn">
+                                            Delete account
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <script>
+
+                    $("#submit").on("click", function () {
+                        var formData = {
+                            name: $("#name").val(),
+                            email: $("#email").val(),
+                            password: $("#password").val(),
+                            age: $("#age").val(),
+                        };
+                        console.log(formData);
+                        $.ajax({
+                            type: "PATCH",
+                            url: "/users/me",
+                            data: formData,
+                        });
+                        window.location.reload();
+                    });
+
+                    $("#reset").on("click", () => {
+                        window.location.reload();
+                    })
+
+                    function deleteImg() {
+
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/users/me/avatar",
+                        });
+                        window.location.href = "/users/me";
+
+                    };
+                    document.getElementById("image").onchange = function () {
+                        document.getElementById("image-form").submit();
+                    };
 
 
-        </script>
+                </script>
 
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-        <!-- <script src="/js/tasks.js"></script> -->
-        <script src="/js/alerts.js"></script>
-        <script src="/js/profile.js"></script>
-        <!-- <script type="text/javascript">
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                    crossorigin="anonymous"></script>
+                <!-- <script src="/js/tasks.js"></script> -->
+                <script src="/js/alerts.js"></script>
+                <script src="/js/profile.js"></script>
+                <!-- <script type="text/javascript">
             window.history.forward();
             function noBack() {
                 window.history.forward();

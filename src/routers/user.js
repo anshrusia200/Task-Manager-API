@@ -111,9 +111,6 @@ router.post("/users", async (req, res) => {
   }
 });
 
-// router.get("/users/login", auth, async (req, res) => {
-//   res.render("tasks_login");
-// });
 router.get("/users/login", auth, async (req, res) => {
   if (!req.user) {
     return res.render("login", {
@@ -299,19 +296,8 @@ router.get("/users/me", auth, async (req, res) => {
     completed,
     not_started,
     in_progress,
+    error_message: req.flash("error_message"),
   });
-
-  // try {
-  //     const users = await User.find({})
-  //     res.send(users)
-  // } catch (e) {
-  //     res.status(500).send()
-  // }
-  //    User.find({}).then((users) => {
-  //        res.send(users)
-  //    }).catch((e) => {
-  //        res.status(500).send()
-  //    })
 });
 // router.get('/users/logout', auth , async(req,res) => {
 
@@ -429,12 +415,34 @@ router.post(
 
     req.user.avatar = buffer; // buffer contains access to all the binary data of that avatar
     await req.user.save();
+    const tasks_completed = await Task.find({
+      userId: req.user.userId,
+      status: "Completed",
+    });
+    const completed = tasks_completed.length;
+    const tasks_not_started = await Task.find({
+      userId: req.user.userId,
+      status: "Not Started",
+    });
+    const not_started = tasks_not_started.length;
+    const tasks_in_progress = await Task.find({
+      userId: req.user.userId,
+      status: "In Progress",
+    });
+    const in_progress = tasks_in_progress.length;
+    const total = completed + in_progress + not_started;
+    console.log(total);
     res.render("profile", {
       user: req.user,
+      total,
+      completed,
+      not_started,
+      in_progress,
     });
   },
   (error, req, res, next) => {
-    res.status(400).send({ error: error.message });
+    req.flash("error_message", error.message);
+    res.redirect("/users/me");
   }
 );
 
@@ -443,19 +451,19 @@ router.delete("/users/me/avatar", auth, async (req, res) => {
   await req.user.save();
 });
 
-router.get("/users/:id/avatar", async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
+// router.get("/users/:id/avatar", async (req, res) => {
+//   try {
+//     const user = await User.findById(req.params.id);
 
-    if (!user || !user.avatar) {
-      throw new Error();
-    }
+//     if (!user || !user.avatar) {
+//       throw new Error();
+//     }
 
-    res.set("Content-Type", "image/png");
-    res.send(user.avatar);
-  } catch (e) {
-    res.status(400).send();
-  }
-});
+//     res.set("Content-Type", "image/png");
+//     res.send(user.avatar);
+//   } catch (e) {
+//     res.status(400).send();
+//   }
+// });
 
 module.exports = router;
