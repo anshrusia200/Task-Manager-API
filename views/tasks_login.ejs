@@ -30,7 +30,9 @@
           </button>
       </div>
       <% } %>
-
+        <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+          <i class="fas fa-arrow-up"></i>
+        </button>
         <div class="welcomeMsg">
           <h3>Hello, welcome <%= user.name %>
           </h3>
@@ -150,7 +152,7 @@
                             description</span>
                           <%= console.log(i + task.description)%>
                             <div class=" status">
-                              <span>Status : </span>
+                              <span><b>Status : </b></span>
                               <span id="status_<%= i %>">
                                 <%= task.status%>
                               </span>
@@ -175,13 +177,13 @@
 
                         <div class="card-bottom">
                           <div class="createdDate">
-                            <div class="key">Date Created</div>
+                            <div class="key"><b>Date Created</b></div>
                             <div class="value">
                               <%= task.createdDate%>
                             </div>
                           </div>
                           <div class="dueDate">
-                            <div class="key">Due Date</div>
+                            <div class="key"><b>Due Date</b></div>
                             <div class="value" id="due_<%= i %>">
                               <%= task.dueDate%>
                             </div>

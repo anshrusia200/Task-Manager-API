@@ -3,6 +3,15 @@
 body {
   font-family: "Kdam Thmor Pro", sans-serif;
 }
+#btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 4rem;
+  border-radius: 100rem;
+  display: none;
+  z-index: 3;
+}
 .welcomeMsg {
   text-align: center;
   margin-bottom: 2rem;
@@ -202,7 +211,6 @@ body {
 }
 .status {
   margin: 1rem 0;
-  font-weight: 600;
 }
 .progress-bar {
   width: 100%;
