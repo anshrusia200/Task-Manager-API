@@ -104,6 +104,13 @@ $("#edit_btn").on("click", () => {
     status: $("#status").val(),
     dueDate: $("#due").val(),
   };
+  if (formData.progress > 0) {
+    formData.status = "In Progress";
+  } else if (formData.progress == 100) {
+    formData.status = "Completed";
+  } else {
+    formData.status = "Not Started";
+  }
   if (formData.description.length > 0 && formData.title.length > 0) {
     $.ajax({
       type: "PATCH",
