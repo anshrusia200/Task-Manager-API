@@ -37,12 +37,13 @@ router.get("/users", auth, async (req, res) => {
   if (!req.user) {
     return res.render("register", {
       error_message: req.flash("error_message") || "",
+      success_message: req.flash("success_message") || "",
     });
   }
   const tasks = await Task.find({ userId: req.user.userId });
 
   return res.render("tasks_login", {
-    success_message: "",
+    success_message: req.flash("success_message"),
     error_message: "",
     user: req.user,
     tasks,
@@ -121,7 +122,7 @@ router.get("/users/login", auth, async (req, res) => {
   const tasks = await Task.find({ userId: req.user.userId });
 
   return res.render("tasks_login", {
-    success_message: "",
+    success_message: req.flash("success_message") || "",
     error_message: "",
     user: req.user,
     tasks,
@@ -318,8 +319,8 @@ router.post("/users/logoutAll", auth, async (req, res) => {
     req.user.tokens = [];
 
     await req.user.save();
-
-    res.send("Logged from all devices successfully.");
+    req.flash("success_message", "Logged out from all devices");
+    res.redirect("/users/login");
   } catch (e) {
     res.status(500).send();
   }
@@ -385,9 +386,11 @@ router.delete("/users/me", auth, async (req, res) => {
 
     await req.user.remove();
     sendCancelEmail(req.user.email, req.user.name);
-    res.send(req.user);
+    req.flash("success_message", "Account deleted successfully");
+    res.redirect("/users");
   } catch (e) {
-    res.status(500).send(e);
+    req.flash("error_message", "User could not be deleted");
+    res.redirect("/users/me");
   }
 });
 
@@ -438,6 +441,7 @@ router.post(
       completed,
       not_started,
       in_progress,
+      error_message: "",
     });
   },
   (error, req, res, next) => {
@@ -451,19 +455,19 @@ router.delete("/users/me/avatar", auth, async (req, res) => {
   await req.user.save();
 });
 
-// router.get("/users/:id/avatar", async (req, res) => {
-//   try {
-//     const user = await User.findById(req.params.id);
+router.get("/users/:id/avatar", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
 
-//     if (!user || !user.avatar) {
-//       throw new Error();
-//     }
+    if (!user || !user.avatar) {
+      throw new Error();
+    }
 
-//     res.set("Content-Type", "image/png");
-//     res.send(user.avatar);
-//   } catch (e) {
-//     res.status(400).send();
-//   }
-// });
+    res.set("Content-Type", "image/png");
+    res.send(user.avatar);
+  } catch (e) {
+    res.status(400).send();
+  }
+});
 
 module.exports = router;

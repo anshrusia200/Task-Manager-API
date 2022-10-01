@@ -1,8 +1,6 @@
-1. filter the task according to date , percent complete
-2. logout all devices 
-3. delete account 
+Features: 
+1. filter the task according to date , percent complete 
+4. fixed card size
 
-
-
-
-
+Error :
+read full description not working when description has a "enter" and following that the edit function modal is also not opening. 

@@ -26,6 +26,16 @@ body {
   justify-content: flex-end;
   width: 35%;
 }
+
+.color-shade {
+  background: rgb(246, 246, 249);
+  background: linear-gradient(
+    90deg,
+    rgba(246, 246, 249, 1) 0%,
+    rgba(255, 224, 224, 0.846673703661152) 56%,
+    rgba(184, 255, 251, 0.5385504543614321) 100%
+  );
+}
 .left-top {
   display: flex;
   flex-direction: column;
@@ -33,11 +43,13 @@ body {
   justify-content: flex-start;
   width: 100%;
   padding: 0 1rem;
-  background-image: linear-gradient(
+  background: transparent !important;
+  /* background-image: linear-gradient(
     to right,
     rgb(246, 181, 150, 0.95),
-    rgb(222, 97, 137, 0.95)
-  );
+    rgb(222, 97, 137, 0.95) */
+  /* ); */
+
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -51,27 +63,28 @@ body {
   width: 100%;
   padding: 1rem;
   margin-top: 1rem;
-  background-image: linear-gradient(
+  background: transparent !important;
+  /* background-image: linear-gradient(
     to right,
     rgb(246, 181, 150, 0.95),
     rgb(222, 97, 137, 0.95)
-  );
+  ); */
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
 }
 .profile-img {
-  width: 7rem;
-  height: 7rem;
+  width: 5rem;
+  height: 5rem;
   background-image: radial-gradient(#ffffff, #00c8ff);
   text-align: center;
   border-radius: 100%;
   margin-top: -20%;
 }
 .profile-img img {
-  width: 7rem;
-  height: 7rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 100%;
   border: 3px solid rgb(0, 60, 255);
 }
@@ -148,11 +161,12 @@ body {
   align-items: center;
   width: 60%;
   padding: 2rem;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     rgb(246, 181, 150, 0.95),
     rgb(222, 97, 137, 0.95)
-  );
+  ); */
+  background: transparent !important;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(4px);
@@ -184,7 +198,7 @@ body {
 }
 .form-input input {
   background: transparent;
-  color: #fff;
+  color: rgb(93, 93, 93);
   border: none;
   border-bottom: 3px solid transparent;
   outline: none;
@@ -230,7 +244,113 @@ body {
   justify-content: space-between;
 }
 .account-btn {
+  border: 1px solid #e8e8e9;
   border-radius: 5px;
+  padding: 5px 10px;
+}
+#logout-all-user {
+  color: #223cd1;
+  font-weight: 600;
+  background-color: #f6f8fa;
+}
+#logout-all-user:hover {
+  background-color: #223cd1;
+  color: #fff;
+  font-weight: 400;
+}
+#delete-acc {
+  color: #d1222e;
+  font-weight: 600;
+  background-color: #f6f8fa;
+}
+#delete-acc:hover {
+  background-color: #cf222e;
+  color: #fff;
+  font-weight: 400;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 2% auto; /* 15% from the top and centered */
+  /* padding: 20px; */
+  border: none;
+  width: 50%; /* Could be more or less, depending on screen size */
+  position: relative;
+  border-radius: 10px;
+}
+.modal-content h3 {
+  text-align: center;
+  width: 100%;
+  background-color: #c8454e;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+  padding: 10px;
+}
+#myModal4 .modal-content {
+  height: 80%;
+}
+
+/* The Close Button */
+.close2 {
+  color: #fff;
+  float: right;
+  width: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close2:hover,
+.close2:focus {
+  color: #ccc;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.delete_content {
+  margin: 1rem 3rem;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-evenly;
+}
+#confirm_text {
+  border: 1px solid #ccc;
+  outline: none;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3px;
+  border-radius: 5px;
+}
+#confirm_text:focus {
+  border: 1px solid rgb(34, 133, 255);
+}
+#confirm_btn {
+  color: #d1222e;
+  background-color: #fff;
+  border: 1px solid #d1222e;
+  border-radius: 5px;
+  padding: 5px;
+}
+#confirm_btn:hover {
+  background-color: #d1222e;
+  color: #fff;
 }
 @media only screen and (max-width: 1000px) {
   .box {
@@ -260,12 +380,23 @@ body {
   }
 }
 
+@media only screen and (max-width: 700px) {
+  .modal-content {
+    width: 70%;
+  }
+  #myModal4 .modal-content {
+    height: 80%;
+  }
+  .modal-content p {
+    font-size: 1rem;
+  }
+}
 @media only screen and (max-width: 600px) {
   .box {
     width: 90%;
   }
 }
-@media only screen and (max-width: 462px) {
+@media only screen and (max-width: 478px) {
   .form-input {
     flex-direction: column;
     align-items: center;
@@ -291,5 +422,11 @@ body {
     flex-direction: row;
     justify-content: center;
     width: 100%;
+  }
+  .modal-content {
+    width: 70%;
+  }
+  #myModal4 .modal-content {
+    height: 95%;
   }
 }

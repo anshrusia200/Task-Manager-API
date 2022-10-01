@@ -28,45 +28,55 @@
             </div>
 
             <% } %>
-
-                <div class="main">
-                    <div class="signup-wrap">
-
-                        <h2> <img src="/images/signupIcon.png" alt="" width="35rem" height=""> Sign Up</h2>
-                        <br>
-                        <form action="/users" method="POST">
-                            <div class="input-wrap">
-                                <input type="text" placeholder="Username" name="name" required>
-                            </div>
-
-                            <div class="input-wrap">
-                                <input type="email" placeholder="Email" name="email" required>
-                            </div>
-
-                            <div class="input-wrap">
-                                <input type="number" min="0" oninput="this.value = Math.abs(this.value)"
-                                    placeholder="Age" name="age">
-                            </div>
-                            <div class="input-wrap">
-                                <input type="password" placeholder="Password" name="password" required>
-                            </div>
-
-                            <div class="input-wrap">
-                                <button type="submit" class="formBtn" style="margin-top: 10px">Sign Up</button>
-
-                            </div>
-
-                        </form>
-
-
-                        <div class="input-wrap">
-                            <h6>Already have an account?</h2>
-                                <a href="/users/login"><button class="formBtn">Login</button></a>
-                        </div>
-
+                <% if(success_message.length>0 ){ %>
+                    <div class="alert alert-danger position-absolute" style="top: 0; right: 0;" role="alert">
+                        <%= success_message %>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                onclick="this.parentNode.style.display = 'none';">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                     </div>
-                </div>
-                </div>
+
+                    <% } %>
+
+                        <div class="main">
+                            <div class="signup-wrap">
+
+                                <h2> <img src="/images/signupIcon.png" alt="" width="35rem" height=""> Sign Up</h2>
+                                <br>
+                                <form action="/users" method="POST">
+                                    <div class="input-wrap">
+                                        <input type="text" placeholder="Username" name="name" required>
+                                    </div>
+
+                                    <div class="input-wrap">
+                                        <input type="email" placeholder="Email" name="email" required>
+                                    </div>
+
+                                    <div class="input-wrap">
+                                        <input type="number" min="0" oninput="this.value = Math.abs(this.value)"
+                                            placeholder="Age" name="age">
+                                    </div>
+                                    <div class="input-wrap">
+                                        <input type="password" placeholder="Password" name="password" required>
+                                    </div>
+
+                                    <div class="input-wrap">
+                                        <button type="submit" class="formBtn" style="margin-top: 10px">Sign Up</button>
+
+                                    </div>
+
+                                </form>
+
+
+                                <div class="input-wrap">
+                                    <h6>Already have an account?</h2>
+                                        <a href="/users/login"><button class="formBtn">Login</button></a>
+                                </div>
+
+                            </div>
+                        </div>
+                        </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

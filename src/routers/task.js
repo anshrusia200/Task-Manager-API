@@ -17,6 +17,13 @@ router.post("/tasks", auth, async (req, res) => {
   }
   const taskId = TaskId();
   console.log(taskId);
+  if (req.body.progress > 0) {
+    req.body.status = "In Progress";
+  } else if (req.body.progress == 100) {
+    req.body.status = "Completed";
+  } else {
+    req.body.status = "Not Started";
+  }
   const task = new Task({
     ...req.body, // ... spread opeartor copies everything from request body into the Task object
     userId: req.user.userId,
